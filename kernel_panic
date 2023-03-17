@@ -1,0 +1,32 @@
+Kernel panics reason:
+
+If the initramfs file gets corrupted.
+If initramfs is not created properly for the specified kernel. Every kernel version has its own corresponding initramfs.
+If the installed kernel is not supported or not installed correctly.
+If recent patches have some flaws.
+If a module has been installed from online or another source, but the initrd image is not created with the latest installed module.
+
+Step 1: Boot the system normally with your given kernel version.
+
+Step 2: Reboot your machine again and select the rescue prompt.
+  : Go to /boot and list all files. Here you will see there is no initramfs file for your kernel, but there is an initramfs file for rescue by which you have booted your system, and another is for kdump.
+ 
+follow steps
+root@ubuntu:~# cd /boot/
+root@ubuntu:/boot# ls -lrts
+total 131076
+    4 drwx------ 3 root root     4096 Jan  1  1970 efi
+ 3960 -rw------- 1 root root  4051807 Jul  2  2019 System.map-4.15.0-55-generic
+  216 -rw-r--r-- 1 root root   217278 Jul  2  2019 config-4.15.0-55-generic
+ 8100 -rw------- 1 root root  8294136 Jul  2  2019 vmlinuz-4.15.0-55-generic
+ 3984 -rw------- 1 root root  4078295 Feb  4 00:06 System.map-4.15.0-206-generic
+  216 -rw-r--r-- 1 root root   217583 Feb  4 00:06 config-4.15.0-206-generic
+ 8272 -rw------- 1 root root  8470184 Feb  4 00:08 vmlinuz-4.15.0-206-generic
+59600 -rw-r--r-- 1 root root 61027466 Mar  3 10:56 initrd.img-4.15.0-55-generic
+46724 -rw-r--r-- 1 root root 47843575 Mar 17 12:16 initrd.img-4.15.0-206-generic
+    0 drwxr-xr-x 1 root root      142 Mar 17 12:16 grub
+
+root@ubuntu:/boot# uname -r
+4.15.0-206-generic
+root@ubuntu:/boot#dracut -f /boot/intramfs-4.15.0-206-generic.img 4.15.0-206-generic
+root@ubuntu:/boot# init 6
