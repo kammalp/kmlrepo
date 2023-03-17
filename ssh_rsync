@@ -1,0 +1,16 @@
+To Generate SSH KEY:   
+               ssh-keygen -t rsa
+
+Copy key to destination machine :
+              cat ~/.ssh/id_rsa.pub | ssh root@Source_IP 'cat >> /root/.ssh/authorized_keys'
+
+
+rsync Commnad:
+           rsync -avh root@1Source_IP:/data_path /root/Desination_path
+
+
+
+      
+cronjob for rsync: every hours:
+       
+       0 * * * * rsync -avh root@1Source_IP:/data_path /root/Desination_path
