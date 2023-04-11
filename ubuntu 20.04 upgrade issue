@@ -1,0 +1,6 @@
+sudo dpkg -P skopeo podman builah
+sudo apt --fix-broken install
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt install skopeo podman builah
